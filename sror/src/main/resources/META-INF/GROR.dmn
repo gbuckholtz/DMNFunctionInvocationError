@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_119DFCE6-F21B-4D26-9833-E27593E2B0B1" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:included1="https://kiegroup.org/dmn/_5B287891-D02C-4B5E-AB02-B91E19F8A15F" id="_B59BFAD5-5EBA-46DC-AF40-F9BB9999B678" name="GROR" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_119DFCE6-F21B-4D26-9833-E27593E2B0B1">
+  <dmn:extensionElements/>
+  <dmn:import id="_1C0878DB-21A0-4FBE-A4FD-28CE625D166D" name="COMMON" namespace="https://kiegroup.org/dmn/_5B287891-D02C-4B5E-AB02-B91E19F8A15F" locationURI="common.dmn" importType="http://www.omg.org/spec/DMN/20180521/MODEL/"/>
+  <dmn:inputData id="_67096D35-4911-43B1-B8FC-5040CF79C538" name="TeachingHistory">
+    <dmn:extensionElements/>
+    <dmn:variable id="_95F81504-2EF0-4D10-BCFE-D566E9B711EA" name="TeachingHistory" typeRef="COMMON.tCourses"/>
+  </dmn:inputData>
+  <dmn:decision id="_D7052892-08DE-431A-9ED5-C52FE1E2CCC0" name="ServedFourOrMore">
+    <dmn:description>Determining if a Term Adjunct with a SRoR who has served four (4) or more consecutive years as a Term Adjunct at Queen’s University</dmn:description>
+    <dmn:extensionElements/>
+    <dmn:variable id="_6E52F302-DF59-4FB4-A837-AB3F59D3F150" name="ServedFourOrMore" typeRef="boolean"/>
+    <dmn:informationRequirement id="_3C38A949-2D5A-41FB-9FF6-4F1DA8BECCBB">
+      <dmn:requiredInput href="#_67096D35-4911-43B1-B8FC-5040CF79C538"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_98AC6D56-590B-45EA-A5DE-F8C664BCA6C5">
+      <dmn:requiredInput href="#_29B901B6-CCE1-4126-800C-DC52854D1269"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement id="_582BBCCE-12A8-4C72-954E-0899C7D6467E">
+      <dmn:requiredKnowledge href="https://kiegroup.org/dmn/_5B287891-D02C-4B5E-AB02-B91E19F8A15F#_A505FEC2-93D7-4D86-A310-2AB1A91D56FC"/>
+    </dmn:knowledgeRequirement>
+    <dmn:context id="_1B09CA24-2620-409B-B584-1DC8D9DF6DA4">
+      <dmn:contextEntry>
+        <dmn:variable id="_42037B51-183F-4A0F-BABF-99ACA5CAD0C6" name="AcademicYearContext" typeRef="number"/>
+        <dmn:literalExpression id="_E6A00980-FA32-4340-84DB-C106728C9550">
+          <dmn:text>COMMON.AcademicYear(DateContext)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_0DDC8147-D0DD-454B-8C1F-1663A03361B1" name="evaluation" typeRef="boolean"/>
+        <dmn:literalExpression id="_DCFCDD04-E575-4752-B4AB-4D39D7D3C4DA">
+          <dmn:text>count(distinct values(TeachingHistory[academicYearTaught &gt;= AcademicYearContext - 3 and academicYearTaught &lt;= AcademicYearContext].academicYearTaught)) &gt;= 4</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:literalExpression id="_F064728C-3961-4C73-AF41-A0EB7758A9EF">
+          <dmn:text>evaluation</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:inputData id="_29B901B6-CCE1-4126-800C-DC52854D1269" name="DateContext">
+    <dmn:extensionElements/>
+    <dmn:variable id="_FE40369F-E4D3-444B-A498-C3B29F85CC46" name="DateContext" typeRef="date"/>
+  </dmn:inputData>
+  <dmn:decision id="_32F300E2-7E73-4EAB-A3F9-E724873854CA" name="CumulativeFCE">
+    <dmn:extensionElements/>
+    <dmn:variable id="_47E52862-163B-410A-A3AD-1A562DE23066" name="CumulativeFCE" typeRef="number"/>
+    <dmn:informationRequirement id="_23D75759-5960-4A5B-9324-9C6A43CC650F">
+      <dmn:requiredInput href="#_67096D35-4911-43B1-B8FC-5040CF79C538"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_823E4566-9C96-4BF4-BF1A-C83717F6E716">
+      <dmn:requiredInput href="#_29B901B6-CCE1-4126-800C-DC52854D1269"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement id="_3F07A5B0-7D62-4ACA-A028-69B2FFC04C04">
+      <dmn:requiredKnowledge href="https://kiegroup.org/dmn/_5B287891-D02C-4B5E-AB02-B91E19F8A15F#_A505FEC2-93D7-4D86-A310-2AB1A91D56FC"/>
+    </dmn:knowledgeRequirement>
+    <dmn:context id="_5AA21C60-205F-4276-BD6A-B5ABF59EAEB7">
+      <dmn:contextEntry>
+        <dmn:variable id="_14073401-104E-43C3-8EE1-4FDB3B53FC76" name="AcademicYearContext" typeRef="number"/>
+        <dmn:literalExpression id="_1952954C-CF3D-42EC-91C8-C3B0848CB84C">
+          <dmn:text>COMMON.AcademicYear(DateContext)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_F4B36B53-8563-4D2F-9498-316ABBD1D6EA" name="CoursesPreAcademicYearContext" typeRef="COMMON.tCourses"/>
+        <dmn:literalExpression id="_7960042F-BBE6-4863-8F89-58EE211BDE86">
+          <dmn:text>TeachingHistory[academicYearTaught &lt; AcademicYearContext]</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_C9E18B8D-E6C9-45C8-A450-1896E293299F" name="ContinuousCourses" typeRef="number"/>
+        <dmn:context id="_12E1720D-EA48-4AA3-BEC8-C5A8083A8C7E">
+          <dmn:contextEntry>
+            <dmn:variable id="_9EB1B74B-4C15-482A-8E15-9625CD377A0D" name="findContCourses" typeRef="COMMON.tCourses"/>
+            <dmn:functionDefinition id="_968A8BC2-5C0F-4DCD-BC4E-F9FEB7765F6F" kind="Java">
+              <dmn:formalParameter id="_5A8FB42A-518A-4918-9C06-088399F3FC44" name="allCourses" typeRef="COMMON.tCourses"/>
+              <dmn:formalParameter id="_BFB2763C-6B6D-4372-9C79-69367ADD22E3" name="refYear" typeRef="number"/>
+              <dmn:context id="_750519A6-759D-4D07-928F-A4A5AB0F545C">
+                <dmn:contextEntry>
+                  <dmn:variable id="_64995548-ECCB-48EB-963E-B75ACD139858" name="class" typeRef="string"/>
+                  <dmn:literalExpression>
+                    <dmn:text>ca.queensu.rules.GRORContinuousCourseFilter</dmn:text>
+                  </dmn:literalExpression>
+                </dmn:contextEntry>
+                <dmn:contextEntry>
+                  <dmn:variable id="_58A308A5-B08D-4DA4-9BF2-70503FEFCA17" name="method signature" typeRef="string"/>
+                  <dmn:literalExpression>
+                    <dmn:text>filterCourses(List&lt;ca.queensu.beans.sror.tCourse&gt;,double)</dmn:text>
+                  </dmn:literalExpression>
+                </dmn:contextEntry>
+              </dmn:context>
+            </dmn:functionDefinition>
+          </dmn:contextEntry>
+          <dmn:contextEntry>
+            <dmn:variable id="_B12948BC-5FA2-41FD-958A-967218EB7ACF" name="ContCoursesList" typeRef="COMMON.tCourses"/>
+            <dmn:invocation id="_4315AAD3-0D1E-46D3-AE35-C614C53F0B72">
+              <dmn:literalExpression id="_AA16FC61-6881-4749-B6C8-3263793D7D7E">
+                <dmn:text>findContCourses</dmn:text>
+              </dmn:literalExpression>
+              <dmn:binding>
+                <dmn:parameter id="_7E958001-91E9-4097-8FC1-ACBACA2A80CD" name="allCourses" typeRef="COMMON.tCourses"/>
+                <dmn:literalExpression id="_5D567D26-ABB4-4212-B31F-4E3CC9F1BB2A">
+                  <dmn:text>CoursesPreAcademicYearContext</dmn:text>
+                </dmn:literalExpression>
+              </dmn:binding>
+              <dmn:binding>
+                <dmn:parameter id="_8DF7BE1F-EAAF-43E5-958A-D844D97F33B9" name="refYear" typeRef="number"/>
+                <dmn:literalExpression id="_00A5AB36-53FE-4D5E-9C07-4DD085EDA1F5">
+                  <dmn:text>AcademicYearContext</dmn:text>
+                </dmn:literalExpression>
+              </dmn:binding>
+            </dmn:invocation>
+          </dmn:contextEntry>
+          <dmn:contextEntry>
+            <dmn:variable id="_2A8A554E-26C0-4C7A-B796-8F2E059064BC" name="FCEUnits" typeRef="number"/>
+            <dmn:literalExpression id="_0B8C4425-CDE1-4EAB-A945-05CFC1557194">
+              <dmn:text>ContCoursesList.units/6</dmn:text>
+            </dmn:literalExpression>
+          </dmn:contextEntry>
+          <dmn:contextEntry>
+            <dmn:literalExpression id="_25CC7FF0-FA85-4C61-97D4-F3F24AB5D645">
+              <dmn:text>if( FCEUnits = null) then 0 else number(FCEUnits)</dmn:text>
+            </dmn:literalExpression>
+          </dmn:contextEntry>
+        </dmn:context>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:literalExpression id="_99734D72-9D5C-4F75-8F62-843F65E40267">
+          <dmn:text>5</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_29F5BEE9-3AC1-4492-8F91-D793F3077734" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_1B09CA24-2620-409B-B584-1DC8D9DF6DA4">
+            <kie:width>50</kie:width>
+            <kie:width>120</kie:width>
+            <kie:width>829</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_E6A00980-FA32-4340-84DB-C106728C9550">
+            <kie:width>829</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_DCFCDD04-E575-4752-B4AB-4D39D7D3C4DA">
+            <kie:width>829</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_F064728C-3961-4C73-AF41-A0EB7758A9EF">
+            <kie:width>829</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_5AA21C60-205F-4276-BD6A-B5ABF59EAEB7">
+            <kie:width>50</kie:width>
+            <kie:width>120</kie:width>
+            <kie:width>803</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_1952954C-CF3D-42EC-91C8-C3B0848CB84C">
+            <kie:width>803</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_7960042F-BBE6-4863-8F89-58EE211BDE86">
+            <kie:width>803</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_12E1720D-EA48-4AA3-BEC8-C5A8083A8C7E">
+            <kie:width>50</kie:width>
+            <kie:width>120</kie:width>
+            <kie:width>613</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_968A8BC2-5C0F-4DCD-BC4E-F9FEB7765F6F">
+            <kie:width>50</kie:width>
+            <kie:width>543</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_750519A6-759D-4D07-928F-A4A5AB0F545C">
+            <kie:width>50</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>373</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_4315AAD3-0D1E-46D3-AE35-C614C53F0B72">
+            <kie:width>50</kie:width>
+            <kie:width>120</kie:width>
+            <kie:width>423</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_AA16FC61-6881-4749-B6C8-3263793D7D7E"/>
+          <kie:ComponentWidths dmnElementRef="_5D567D26-ABB4-4212-B31F-4E3CC9F1BB2A">
+            <kie:width>423</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_00A5AB36-53FE-4D5E-9C07-4DD085EDA1F5">
+            <kie:width>423</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_0B8C4425-CDE1-4EAB-A945-05CFC1557194">
+            <kie:width>613</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_25CC7FF0-FA85-4C61-97D4-F3F24AB5D645">
+            <kie:width>613</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_99734D72-9D5C-4F75-8F62-843F65E40267">
+            <kie:width>803</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_67096D35-4911-43B1-B8FC-5040CF79C538" dmnElementRef="_67096D35-4911-43B1-B8FC-5040CF79C538" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="237.31775700934583" y="392.3421052631579" width="120" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_D7052892-08DE-431A-9ED5-C52FE1E2CCC0" dmnElementRef="_D7052892-08DE-431A-9ED5-C52FE1E2CCC0" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="256" y="94" width="136" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_A505FEC2-93D7-4D86-A310-2AB1A91D56FC" dmnElementRef="included1:_A505FEC2-93D7-4D86-A310-2AB1A91D56FC" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="91" y="216" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_29B901B6-CCE1-4126-800C-DC52854D1269" dmnElementRef="_29B901B6-CCE1-4126-800C-DC52854D1269" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="418.29906542056074" y="403.3421052631579" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_32F300E2-7E73-4EAB-A3F9-E724873854CA" dmnElementRef="_32F300E2-7E73-4EAB-A3F9-E724873854CA" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="315" y="563" width="126" height="53"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-drg-_3C38A949-2D5A-41FB-9FF6-4F1DA8BECCBB-AUTO-SOURCE-AUTO-TARGET" dmnElementRef="_3C38A949-2D5A-41FB-9FF6-4F1DA8BECCBB">
+        <di:waypoint x="297.3177570093458" y="392.3421052631579"/>
+        <di:waypoint x="324" y="144"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_98AC6D56-590B-45EA-A5DE-F8C664BCA6C5-AUTO-TARGET" dmnElementRef="_98AC6D56-590B-45EA-A5DE-F8C664BCA6C5">
+        <di:waypoint x="468.29906542056074" y="428.3421052631579"/>
+        <di:waypoint x="324" y="144"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_582BBCCE-12A8-4C72-954E-0899C7D6467E-AUTO-TARGET" dmnElementRef="_582BBCCE-12A8-4C72-954E-0899C7D6467E">
+        <di:waypoint x="141" y="241"/>
+        <di:waypoint x="324" y="144"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_23D75759-5960-4A5B-9324-9C6A43CC650F-AUTO-TARGET" dmnElementRef="_23D75759-5960-4A5B-9324-9C6A43CC650F">
+        <di:waypoint x="297.3177570093458" y="417.3421052631579"/>
+        <di:waypoint x="378" y="563"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_823E4566-9C96-4BF4-BF1A-C83717F6E716" dmnElementRef="_823E4566-9C96-4BF4-BF1A-C83717F6E716">
+        <di:waypoint x="468.29906542056074" y="428.3421052631579"/>
+        <di:waypoint x="378" y="563"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_3F07A5B0-7D62-4ACA-A028-69B2FFC04C04" dmnElementRef="_3F07A5B0-7D62-4ACA-A028-69B2FFC04C04">
+        <di:waypoint x="141" y="241"/>
+        <di:waypoint x="186" y="573.5"/>
+        <di:waypoint x="315" y="589.5"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>

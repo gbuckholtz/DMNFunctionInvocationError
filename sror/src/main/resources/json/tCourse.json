@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "id": "urn:jsonschema:ca:queensu:beans:sror:tCourse",
+    "properties": {
+        "Course_code": {
+            "type": "string",
+            "required": true
+        },
+        "Academic_year_taught": {
+            "type": "integer",
+            "required": true
+        },
+        "Units": {
+            "type": "integer",
+            "required": true
+        },
+        "Delivery_format": {
+            "type": "string",
+            "required": true
+        },
+        "Responsibility_percentage": {
+            "type": "integer",
+            "required": true
+        },
+        "units": {
+            "type": "integer"
+        },
+        "course_code": {
+            "type": "string"
+        },
+        "academic_year_taught": {
+            "type": "integer"
+        },
+        "delivery_format": {
+            "type": "string"
+        },
+        "responsibility_percentage": {
+            "type": "integer"
+        }
+    }
+}

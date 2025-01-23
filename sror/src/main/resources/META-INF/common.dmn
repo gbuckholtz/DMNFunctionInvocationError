@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_5B287891-D02C-4B5E-AB02-B91E19F8A15F" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_143B5EAC-5C65-44D8-B1C0-EB8E07FBE492" name="common" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_5B287891-D02C-4B5E-AB02-B91E19F8A15F">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_9754D69D-098F-4279-9324-371FE39ECF1B" name="AnotherSimpeStructure" isCollection="false">
+    <dmn:itemComponent id="_67287E97-A35A-4B69-8AE5-9FEEEB9C24E0" name="SimpleString" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_385A87AF-2973-4B98-BD0C-FB8C8C5A9E2B" name="SimpleNumber" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_C914C3FD-35F8-433C-88B2-71CC2A397F1A" name="tCourse" isCollection="false">
+    <dmn:itemComponent id="_088453FF-5A7E-4470-B562-C59C2E619337" name="units" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_53E1E6FD-836C-4CD1-8DFD-0A525E1B2086" name="responsibilityPercentage" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_8F8008F8-A559-4AAB-A47E-B03CF1843E6D" name="deliveryFormat" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_C8AC8489-3E45-4929-91AC-1B131D8B2DDF" name="courseCode" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_88A3888E-9D4F-4C9A-A9F3-384AD17443D7" name="academicYearTaught" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_90CF956E-621E-4E8A-BCB9-27204F1A90D3" name="tCourses" isCollection="true">
+    <dmn:typeRef>tCourse</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:businessKnowledgeModel id="_A505FEC2-93D7-4D86-A310-2AB1A91D56FC" name="AcademicYear">
+    <dmn:extensionElements/>
+    <dmn:variable id="_5E7BFB26-8474-4447-844A-6095B1DF485F" name="AcademicYear" typeRef="number"/>
+    <dmn:encapsulatedLogic id="_0DFCB276-D1E9-4CB9-9410-4B4006733F51" kind="FEEL">
+      <dmn:formalParameter id="_FAAF68BE-85D7-4B8A-A349-B74E4B8B4374" name="CalendarDate" typeRef="date"/>
+      <dmn:context id="_65747E88-8516-484C-899B-6F77E99B6C55">
+        <dmn:contextEntry>
+          <dmn:variable id="_F15C4CF0-FBC1-4F2A-B06E-66EA26837C85" name="Cal Year" typeRef="number"/>
+          <dmn:literalExpression id="_7E62A8FA-EFE9-403A-B2A7-871F782C1A03">
+            <dmn:text>CalendarDate.year</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:variable id="_71EA0988-3BD5-4593-A8B5-9FE8007927CD" name="Cal Month" typeRef="number"/>
+          <dmn:literalExpression id="_3667E256-7E83-4FF7-97D4-72C26F609FA0">
+            <dmn:text>CalendarDate.month</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:variable id="_F75C1ADB-8043-427E-B99C-346DE3F69788" name="First Half of Year" typeRef="number"/>
+          <dmn:literalExpression id="_AF55ACCB-2B99-4CC6-B18F-CC951C884E02">
+            <dmn:text>[7..12]</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:literalExpression id="_B747D20F-AAE5-4E52-8E30-DD718AF9E54E">
+            <dmn:text>if Cal Month in First Half of Year then Cal Year else Cal Year -1</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+      </dmn:context>
+    </dmn:encapsulatedLogic>
+  </dmn:businessKnowledgeModel>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_662EFE66-C3E3-487F-914D-37335EFD42CA" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_65747E88-8516-484C-899B-6F77E99B6C55">
+            <kie:width>50</kie:width>
+            <kie:width>120</kie:width>
+            <kie:width>705</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_7E62A8FA-EFE9-403A-B2A7-871F782C1A03">
+            <kie:width>705</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_3667E256-7E83-4FF7-97D4-72C26F609FA0">
+            <kie:width>705</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_AF55ACCB-2B99-4CC6-B18F-CC951C884E02">
+            <kie:width>705</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_B747D20F-AAE5-4E52-8E30-DD718AF9E54E">
+            <kie:width>705</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_0DFCB276-D1E9-4CB9-9410-4B4006733F51">
+            <kie:width>50</kie:width>
+            <kie:width>895</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_A505FEC2-93D7-4D86-A310-2AB1A91D56FC" dmnElementRef="_A505FEC2-93D7-4D86-A310-2AB1A91D56FC" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="391" y="398" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
