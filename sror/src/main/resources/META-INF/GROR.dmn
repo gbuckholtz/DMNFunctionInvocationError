@@ -86,7 +86,7 @@
                 <dmn:contextEntry>
                   <dmn:variable id="_58A308A5-B08D-4DA4-9BF2-70503FEFCA17" name="method signature" typeRef="string"/>
                   <dmn:literalExpression>
-                    <dmn:text>filterCourses(List&lt;ca.queensu.beans.sror.tCourse&gt;,double)</dmn:text>
+                    <dmn:text>filterCourses(java.util.List&lt;ca.queensu.beans.sror.tCourse&gt;,double)</dmn:text>
                   </dmn:literalExpression>
                 </dmn:contextEntry>
               </dmn:context>
